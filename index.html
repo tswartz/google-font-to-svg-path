@@ -11,6 +11,26 @@
 
   <script src="https://maker.js.org/target/js/browser.maker.js" type="text/javascript"></script>
   <script src="https://pomax.github.io/bezierjs/bezier.js" type="text/javascript"></script>
+  <script type="text/javascript" src="browserfs.min.js"></script>
+  <script type="text/javascript">
+    // Installs globals onto window:
+    // * Buffer
+    // * require (monkey-patches if already defined)
+    // * process
+    // You can pass in an arbitrary object if you do not wish to pollute
+    // the global namespace.
+    BrowserFS.install(window);
+    // Configures BrowserFS to use the LocalStorage file system.
+    BrowserFS.configure({
+      fs: "LocalStorage"
+    }, function(e) {
+      if (e) {
+        // An error happened!
+        throw e;
+      }
+      // Otherwise, BrowserFS is ready-to-use!
+    });
+  </script>
   <script src="opentype.js" type="text/javascript"></script>
   <script src="index.js" type="text/javascript"></script>
 
@@ -24,23 +44,19 @@
 
 <hr/>
 
-<label>font: <select id="font-select"></select></label>
+<input id="start-index" value="0">
+<input id="end-index" value="10">
+<button onclick="onGenerateClick()">
+  Generate SVGs
+</button>
+<button id="download-button" disabled onclick="onDownloadClick()">
+  Download JSON files
+</button>
 
-<label>variant: <select id="font-variant"></select></label>
+<h4 id="loading-text" class="hidden">Loading fonts...</h4>
+<h4 id="done-text" class="hidden">Ready to download!</h4>
 
-<label>text: <input type="text" id="input-text" value="Verb" /></label>
-
-<label>size: <input type="number" id="input-size" value="100" /></label>
-
-<label>union: <input type="checkbox" id="input-union" /></label>
-
-<label>separate characters: <input type="checkbox" id="input-separate" /></label>
-
-<label>bezier accuracy <span title="0.5 = accurate to half a pixel &#013;.001 = accurate to 1/1000th of a pixel &#013;smaller numbers take longer to compute &#013;leave blank for auto">&#128712;</span> : <input type="text" id="input-bezier-accuracy" placeholder="auto" /></label>
-
-<div id="svg-render"></div>
-
-<textarea id="output-svg"></textarea>
+<div id="output-svg"/>
 
 </body>
 </html>

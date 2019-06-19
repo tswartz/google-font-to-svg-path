@@ -10,17 +10,17 @@ hr {
     margin: 20px 0;
 }
 
-label {
-    margin-right: 3ex;
-    white-space: nowrap;
-}
-
 svg {
     margin: 20px;
     overflow: visible;
 }
 
-textarea {
-    height: 300px;
-    width: 100%;
+#output-svg div {
+    display: flex;
+    align-items: start;
+    flex-wrap: wrap;
+}
+
+.hidden {
+    display: none;
 }

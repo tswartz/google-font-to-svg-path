@@ -1,4 +1,5 @@
 var makerjs = require('makerjs') as typeof makerjs;
+var fs = require('file-system') as typeof fs;
 
 class App {
 
