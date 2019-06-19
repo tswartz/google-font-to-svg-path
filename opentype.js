@@ -4979,7 +4979,7 @@ vim: set ts=4 sw=4 expandtab:
 
 var check = require('./check');
 
-function searchTag(arr, tag) {
+function searchTag(arr = [], tag) {
     /* jshint bitwise: false */
     var imin = 0;
     var imax = arr.length - 1;
@@ -4996,7 +4996,7 @@ function searchTag(arr, tag) {
     return -imin - 1;
 }
 
-function binSearch(arr, value) {
+function binSearch(arr = [], value) {
     /* jshint bitwise: false */
     var imin = 0;
     var imax = arr.length - 1;
@@ -5080,7 +5080,7 @@ Layout.prototype = {
      */
     getDefaultScriptName: function() {
         var layout = this.getTable();
-        if (!layout) { return; }
+        if (!layout || !layout.scripts) { return; }
         var hasLatn = false;
         for (var i = 0; i < layout.scripts.length; i++) {
             var name = layout.scripts[i].tag;
@@ -5630,7 +5630,7 @@ function parseBuffer(buffer) {
  */
 function load(url, callback) {
     var isNode = typeof window === 'undefined';
-    var loadFn = isNode ? loadFromFile : loadFromUrl;
+    var loadFn = loadFromUrl;
     loadFn(url, function(err, arrayBuffer) {
         if (err) {
             return callback(err);
@@ -6438,7 +6438,7 @@ Path.prototype.toSVG = function(decimalPlaces) {
     svg += '"';
     if (this.fill && this.fill !== 'black') {
         if (this.fill === null) {
-            svg += ' fill="none"';
+            svg += ' fill="black"';
         } else {
             svg += ' fill="' + this.fill + '"';
         }

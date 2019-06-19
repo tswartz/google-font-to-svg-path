@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc ./index.ts",
-    "start": "http-server -c-1 -o",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node start.js"
   },
   "repository": {
     "type": "git",
@@ -25,8 +25,13 @@
   "homepage": "https://github.com/danmarshall/google-font-to-svg-path#readme",
   "dependencies": {
     "@types/google.fonts": "^1.0.1",
+    "browserfs": "^1.4.3",
+    "express": "^4.16.4",
+    "file-system": "^2.2.2",
+    "fs": "0.0.1-security",
     "makerjs": "^0.9.71",
-    "opentype.js": "^0.7.3"
+    "opentype.js": "^0.7.3",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "http-server": "^0.10.0",
