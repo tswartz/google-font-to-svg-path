@@ -4,7 +4,6 @@ var fs = require('fs');
 let obj = {};
 let started = {};
 let fontListLength;
-let counter = 0;
 
 var textFile = null,
   makeTextFile = function (text) {
@@ -99,15 +98,22 @@ function getSvg(font, text, container) {
     var div = document.createElement('div');
     div.innerHTML = svgText.trim();  
     const svgElement = div.firstChild;
+    svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    svgElement.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
     const g = svgElement.getElementById('svgGroup');
     g.setAttribute('fill', '#33475b');
+    g.setAttribute('stroke', '#33475b');
     g.setAttribute('stroke-width', '0.1mm');
-    g.style = 'stroke:#33475b;stroke-width:0.1mm;fill:#33475b';
+    g.style.fill = '#33475b';
+    g.style.stroke = '#33475b';
+    g.style.strokeWidth = '0.1mm';
     // g.removeAttribute('stroke');
     // g.removeAttribute('stroke-linecap');
     container.appendChild(svgElement);
     return svgElement;
 }
+
+let counter = 0;
 
 function onGenerateClick() {
     var xhr = new XMLHttpRequest();
@@ -130,6 +136,9 @@ function onGenerateClick() {
             started[f.family] = true;
             var defaultVariant = getDefaultVariant(f);
             const div = document.createElement('div');
+            const label = document.createElement('span');
+            label.innerHTML = f.family;
+            div.appendChild(label);
             f.variants.forEach((v, vIndex) => {
                 var url = f.files[v];
                 opentype.load(url, function (err, font) {
